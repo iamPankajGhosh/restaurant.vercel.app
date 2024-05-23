@@ -4,14 +4,19 @@ import { User } from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { fullName, email, phoneNumber, password } = req.body;
 
-  if ([fullName, email, password].some((field) => field?.trim() === "")) {
+  if (
+    [fullName, email, phoneNumber, password].some(
+      (field) => field?.trim() === ""
+    )
+  ) {
     throw new ApiError(400, "All fields are required");
   }
 
   const existedUser = await User.findOne({
     email,
+    phoneNumber,
   });
 
   if (existedUser) {
@@ -21,6 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     fullName,
     email,
+    phoneNumber,
     password,
   });
 
@@ -36,7 +42,6 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-
   const { email, password } = req.body;
   console.log(email);
 
