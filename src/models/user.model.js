@@ -24,6 +24,8 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    cartItems: Array,
+    orders: Array,
   },
   {
     timestamps: true,

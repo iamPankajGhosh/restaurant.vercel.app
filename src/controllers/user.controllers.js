@@ -68,4 +68,38 @@ const loginUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "User logged In Successfully"));
 });
 
-export { registerUser, loginUser };
+// add to cart items
+const addToCart = asyncHandler(async (req, res) => {
+  const { userId, productId } = req.body;
+
+  const user = await User.findById({
+    _id: userId,
+  });
+
+  if (!user) {
+    throw new ApiError(404, "User does not exist");
+  }
+
+  user.cartItems.push(productId);
+
+  await user.save();
+
+  return res.status(200).json(new ApiResponse(200, "Product added to cart"));
+});
+
+// get cart items
+const getCartItems = asyncHandler(async (req, res) => {
+  const { userId } = req.body;
+
+  const user = await User.findById({
+    _id: userId,
+  });
+
+  if (!user) {
+    throw new ApiError(404, "User does not exist");
+  }
+
+  return res.status(200).json(new ApiResponse(200, user.cartItems));
+});
+
+export { registerUser, loginUser, addToCart, getCartItems };
