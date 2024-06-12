@@ -2,6 +2,12 @@ import mongoose, { Schema } from "mongoose";
 
 const userSchema = new Schema(
   {
+    fullName: {
+      type: String,
+      trim: true,
+      index: true,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -9,23 +15,24 @@ const userSchema = new Schema(
       lowecase: true,
       trim: true,
     },
-    fullName: {
+    password: {
       type: String,
-      trim: true,
-      index: true,
-      default: "user",
+      required: [true, "Password is required"],
     },
     phoneNumber: {
       type: String,
       required: true,
       trim: true,
     },
-    password: {
+    address: {
       type: String,
-      required: [true, "Password is required"],
+      required: true,
+      trim: true,
     },
-    cartItems: Array,
-    orders: Array,
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

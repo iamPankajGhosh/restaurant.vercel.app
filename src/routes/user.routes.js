@@ -1,16 +1,9 @@
 import { Router } from "express";
-import {
-  addToCart,
-  loginUser,
-  registerUser,
-  getCartItems,
-} from "../controllers/user.controllers.js";
+import { signUpUser, signInUser } from "../controllers/user.controllers.js";
 
 const router = Router();
 
-router.route("/register").post(registerUser);
-router.route("/login").post(loginUser);
-router.route("/add-to-cart").post(addToCart);
-router.route("/cart-items").get(getCartItems);
+router.route("/sign-up").post(signUpUser);
+router.route("/sign-in").post(signInUser);
 
 export default router;
