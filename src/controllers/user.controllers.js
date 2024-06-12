@@ -67,19 +67,9 @@ export const signInUser = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid user credentials");
   }
 
-  const userToken = jwt.sign(
-    {
-      userId: user._id,
-      fullName: user.fullName,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      address: user.address,
-      isAdmin: user.isAdmin,
-    },
-    process.env.JWT_SECRET
-  );
+  const loggedUser = await User.findById(user._id).select("-password");
 
   return res
     .status(200)
-    .json(new ApiResponse(200, "User logged In Successfully", userToken));
+    .json(new ApiResponse(200, "User logged In Successfully", loggedUser));
 });
