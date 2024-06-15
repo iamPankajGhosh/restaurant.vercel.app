@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 export const signUpUser = asyncHandler(async (req, res) => {
-  const { fullName, email, phoneNumber, password, address } = req.body;
+  const { fullName, email, phoneNumber, password } = req.body;
 
   if (
     [fullName, email, password, phoneNumber, address].some(
@@ -32,7 +32,6 @@ export const signUpUser = asyncHandler(async (req, res) => {
     email,
     password: hashedPassword,
     phoneNumber,
-    address,
   });
 
   const createdUser = await User.findById(user._id).select("-password");
