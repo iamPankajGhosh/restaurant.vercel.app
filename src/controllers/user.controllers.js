@@ -9,7 +9,7 @@ export const signUpUser = asyncHandler(async (req, res) => {
   const { fullName, email, phoneNumber, password } = req.body;
 
   if (
-    [fullName, email, password, phoneNumber, address].some(
+    [fullName, email, password, phoneNumber].some(
       (field) => field?.trim() === ""
     )
   ) {
